@@ -126,8 +126,19 @@ class _AddUserDialogState extends State<AddUserDialog> {
               DropdownButtonFormField<String>(
                 initialValue: selectedRole,
                 decoration: const InputDecoration(labelText: "Role Akun"),
-                items: ['sekolah', 'staff_pendataan', 'korlap', 'produksi', 'super_admin']
-                    .map((r) => DropdownMenuItem(value: r, child: Text(r.toUpperCase().replaceAll('_', ' '))))
+                // --- UPDATE DAFTAR ROLE DI SINI ---
+                items: [
+                    'sekolah', 
+                    'staff_pendataan', 
+                    'korlap', 
+                    'supervisor_produksi', // <--- BARU
+                    'staff_produksi',      // <--- BARU
+                    'super_admin'
+                  ]
+                    .map((r) => DropdownMenuItem(
+                      value: r, 
+                      child: Text(r.toUpperCase().replaceAll('_', ' ')))
+                    )
                     .toList(),
                 onChanged: (v) => setState(() {
                   selectedRole = v!;

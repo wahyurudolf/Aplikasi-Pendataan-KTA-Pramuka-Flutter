@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
@@ -9,7 +8,7 @@ class AuthService {
   // Stream untuk memantau status login (Realtime)
   Stream<User?> get authStateChanges => _auth.authStateChanges();
 
-  // Fungsi Login Email & Password
+  // Fungsi Login Email & Password (DIPERBAIKI)
   Future<User?> signIn(String email, String password) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
@@ -17,9 +16,34 @@ class AuthService {
         password: password
       );
       return result.user;
+    } on FirebaseAuthException catch (e) {
+      // Menangani kode error spesifik dari Firebase
+      String message = '';
+      switch (e.code) {
+        case 'user-not-found':
+          message = 'Email tidak ditemukan.';
+          break;
+        case 'wrong-password':
+          message = 'Password salah.';
+          break;
+        case 'invalid-credential': // <--- INI PENYEBAB ERROR KEMARIN
+          message = 'Email atau Password salah.';
+          break;
+        case 'user-disabled':
+          message = 'Akun telah dinonaktifkan.';
+          break;
+        case 'too-many-requests':
+          message = 'Terlalu banyak percobaan login. Tunggu sebentar.';
+          break;
+        default:
+          message = 'Login Gagal: ${e.message}';
+      }
+      
+      // Lempar pesan bahasa Indonesia ini ke UI (SnackBar)
+      throw message; 
     } catch (e) {
-      debugPrint("Error Login: $e");
-      rethrow; // Lempar error ke UI biar muncul notifikasi
+      // Error lain (koneksi internet, dll)
+      throw 'Terjadi kesalahan sistem. Periksa koneksi internet.';
     }
   }
 
@@ -28,7 +52,8 @@ class AuthService {
     try {
       DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
       if (doc.exists) {
-        return doc['role'] ?? 'sekolah'; // Default ke sekolah jika error
+        // Data role diambil dari sini (termasuk role baru supervisor_produksi)
+        return doc['role'] ?? 'sekolah'; 
       }
       return 'sekolah';
     } catch (e) {

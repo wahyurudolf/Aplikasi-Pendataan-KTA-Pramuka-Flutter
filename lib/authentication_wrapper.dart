@@ -1,3 +1,4 @@
+import 'package:ayo_data/screens/produksi_staff/views/staff_print_home.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'services/auth_service.dart';
@@ -7,7 +8,8 @@ import 'screens/admin/admin_main_screen.dart';
 import 'screens/korlap/korlap_main_screen.dart';
 import 'screens/staff_pendataan/staff_pendataan_main_sreen.dart';
 import 'screens/sekolah/sekolah_main_screen.dart';
-import 'screens/dashboard/produksi_dashboard.dart';
+import 'screens/produksi_spv/spv_production_home.dart';
+
 
 class AuthenticationWrapper extends StatelessWidget {
   const AuthenticationWrapper({super.key});
@@ -48,8 +50,10 @@ class AuthenticationWrapper extends StatelessWidget {
                 return const KorlapMainScreen();
               case 'staff_pendataan':
                 return const StaffPendataanMainScreen();
-              case 'produksi':
-                return const ProduksiDashboard();
+              case 'supervisor_produksi':
+                return const SpvProductionHome();
+              case 'staff_produksi':
+                return const StaffPrintHome();
               case 'sekolah':
               default:
                 return const SekolahMainScreen();

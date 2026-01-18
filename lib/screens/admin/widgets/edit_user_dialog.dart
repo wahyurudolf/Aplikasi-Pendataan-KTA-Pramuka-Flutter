@@ -83,8 +83,19 @@ class _EditUserDialogState extends State<EditUserDialog> {
               DropdownButtonFormField<String>(
                 initialValue: _selectedRole,
                 decoration: const InputDecoration(labelText: "Role Akun"),
-                items: ['sekolah', 'staff_pendataan', 'korlap', 'produksi', 'super_admin']
-                    .map((r) => DropdownMenuItem(value: r, child: Text(r.toUpperCase().replaceAll('_', ' '))))
+                // --- UPDATE DAFTAR ROLE DI SINI JUGA ---
+                items: [
+                    'sekolah', 
+                    'staff_pendataan', 
+                    'korlap', 
+                    'supervisor_produksi', // <--- BARU
+                    'staff_produksi',      // <--- BARU
+                    'super_admin'
+                  ]
+                    .map((r) => DropdownMenuItem(
+                      value: r, 
+                      child: Text(r.toUpperCase().replaceAll('_', ' ')))
+                    )
                     .toList(),
                 onChanged: (v) {
                   setState(() {

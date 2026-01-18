@@ -174,24 +174,24 @@ class _SchoolDetailViewState extends State<SchoolDetailView> {
         },
       ),
       
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.brown,
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text("Input Anggota", style: TextStyle(color: Colors.white)),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => InputMemberScreen(
-                memberId: null,
-                memberData: null,
-                forcedSekolahId: widget.sekolahId,
-                forcedSekolahNama: widget.sekolahNama,
-              ),
-            ),
-          );
-        },
-      ),
+      // floatingActionButton: FloatingActionButton.extended(
+      //   backgroundColor: Colors.brown,
+      //   icon: const Icon(Icons.add, color: Colors.white),
+      //   label: const Text("Input Anggota", style: TextStyle(color: Colors.white)),
+      //   onPressed: () {
+      //     Navigator.push(
+      //       context,
+      //       MaterialPageRoute(
+      //         builder: (context) => InputMemberScreen(
+      //           memberId: null,
+      //           memberData: null,
+      //           forcedSekolahId: widget.sekolahId,
+      //           forcedSekolahNama: widget.sekolahNama,
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 
